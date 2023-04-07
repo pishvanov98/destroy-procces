@@ -1,7 +1,12 @@
 <?
 exec("tasklist", $task_list);
 
-
+if(!empty($argv[1])){
+$proces=$argv[1];	
+}else{
+$proces= "Процесс";
+}
+	
 $i=0;
 $pid_kill_proc_mass=array();
 $coun_proces=0;
@@ -15,7 +20,7 @@ $i++;
 $massiv= explode(' ',$item);
 $massiv= array_filter($massiv);
 
-if($massiv[0]=="Имя процесса"){
+if($massiv[0]==$proces){
 	$name_proces = array_shift($massiv);
 	$pid_proces = array_shift($massiv);
 	if($coun_proces >= 3){
@@ -26,7 +31,6 @@ if($massiv[0]=="Имя процесса"){
 
 }
 
-
 if(!empty($pid_kill_proc_mass)){
 	
 	var_dump($pid_kill_proc_mass);
@@ -36,7 +40,6 @@ if(!empty($pid_kill_proc_mass)){
 		exec("taskkill /PID ".$item_del. " /f");
 		
 	}
-	
 	
 }
 
